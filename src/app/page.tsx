@@ -1,15 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAPOD, getRandomDate } from "@/hooks/useAPOD";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   CalendarDays,
   Download,
-  Moon,
-  Sun,
-  Rocket,
   Loader,
   AlertTriangle,
   NotebookPen,
@@ -19,12 +16,19 @@ import {
 import { FaXTwitter, FaLinkedin, FaInstagram } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import Starfield from "@/components/Starfield";
-import Link from "next/link";
+import { useTheme } from "next-themes";
 
 export default function HomePage() {
   const [date, setDate] = useState<string | undefined>(undefined);
-  const [dark, setDark] = useState(true);
+  const { theme } = useTheme();
   const { data, isLoading, isFetching, isError } = useAPOD(date);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => setMounted(true), []);
+  
+  if (!mounted) return null;
+  
+  const dark = theme === "dark";
 
   const handleNextAPOD = () => {
     const randomDate = getRandomDate();
@@ -63,7 +67,7 @@ export default function HomePage() {
   return (
     <main
       className={`${
-        dark ? "bg-zinc-950 text-zinc-100" : "bg-white text-zinc-900"
+        dark ? "bg-zinc-950 text-zinc-100" : "bg-white/20 text-zinc-900"
       } min-h-screen p-6 transition-colors`}
     >
       <Starfield />
@@ -124,9 +128,13 @@ export default function HomePage() {
         </div>
       )}
 
-
-      {/* Header */}
-      <div className="flex items-center gap-2">
+      {/* CT Actions */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
+        className="flex flex-wrap justify-center gap-4 mb-10 mt-20 sm:mt-16 md:mt-12"
+      >
         <h1
           className={`text-3xl font-bold tracking-tight flex items-center gap-2 ${
             dark ? "text-zinc-100" : "text-zinc-900"
@@ -135,23 +143,14 @@ export default function HomePage() {
           <Telescope className="text-red-500" size={28} />
           Space Explorer
         </h1>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setDark(!dark)}
-          aria-label="Toggle dark mode"
-        >
-          {dark ? <Sun size={20} /> : <Moon size={20} />}
-        </Button>
-
-        <Button
+        <motion.button
           onClick={handleNextAPOD}
           disabled={isFetching}
-          size="sm"
-          className={`shadow-sm ${
-            dark
-                ? "bg-red-800 hover:bg-red-700 text-white border-red-500"
-                : "bg-red-600 hover:bg-red-500 text-white border-red-400"
+          className={`flex items-center gap-3 px-6 py-4 text-lg font-semibold rounded-full shadow-xl transition-all
+            ${
+              dark
+                ? "bg-gradient-to-r from-yellow-400 to-red-600 text-zinc-950 hover:from-yellow-500 hover:to-red-700"
+                : "bg-gradient-to-r from-red-600 to-yellow-400 text-white hover:from-red-700 hover:to-yellow-500"
             }`}
         >
           {isFetching ? (
@@ -161,36 +160,11 @@ export default function HomePage() {
             </>
           ) : (
             <>
-              <ImagePlus size={16} className="mr-2" />
-              APOD
+              <ImagePlus size={18} className="mr-2" />
+              Get Astronomy Picture of the Day
             </>
           )}
-        </Button>
-      </div>
-
-
-      {/* CT Actions */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
-        className="flex flex-wrap justify-center gap-4 mb-10 mt-20 sm:mt-16 md:mt-12"
-      >
-      <Link href="/mars">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`flex items-center gap-3 px-6 py-4 text-lg font-semibold rounded-full shadow-xl transition-all
-            ${
-              dark
-                ? "bg-gradient-to-r from-yellow-400 to-red-600 text-zinc-950 hover:from-yellow-500 hover:to-red-700"
-                : "bg-gradient-to-r from-red-600 to-yellow-400 text-white hover:from-red-700 hover:to-yellow-500"
-            }`}
-        >
-          <Rocket className="w-5 h-5" />
-          Launch Mars Explorer
         </motion.button>
-      </Link>
     </motion.div>
 
 

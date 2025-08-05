@@ -1,5 +1,3 @@
-// app/api/image-proxy/route.ts
-
 import { NextRequest } from "next/server";
 import http from "http";
 import https from "https";

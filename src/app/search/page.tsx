@@ -13,7 +13,7 @@ import {
   Share2,
 } from "lucide-react";
 import Image from "next/image";
-import Starfield from "@/components/Starfield";
+import Starfield from "@/components/Layout/Starfield";
 import VideoPlayer from "@/components/Search/VideoPlayer";
 import { useMilestonesStore } from "@/stores/useMilestonesStore";
 

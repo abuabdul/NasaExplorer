@@ -7,7 +7,7 @@ import RoverTabs from "@/components/Mars/RoverTabs";
 import FilterPanel from "@/components/Mars/FilterPanel";
 import RoverGallery from "@/components/Mars/RoverGallery";
 import TelemetryChart from "@/components/Mars/TelemetryChart";
-import Starfield from "@/components/Starfield";
+import Starfield from "@/components/Layout/Starfield";
 
 export default function MarsPage() {
   const [selectedRover, setSelectedRover] = useState<"curiosity" | "opportunity" | "spirit">("opportunity");

@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { FaXTwitter, FaLinkedin, FaInstagram } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import Starfield from "@/components/Starfield";
+import Starfield from "@/components/Layout/Starfield";
 import { useTheme } from "next-themes";
 
 export default function HomePage() {

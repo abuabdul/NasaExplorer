@@ -17,15 +17,13 @@ export async function GET(req: NextRequest) {
     try {
       const request = client.get(imageUrl, {
         headers: {
-          // Set a browser-like user agent to avoid 403s from strict servers
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/91.0.4472.124 Safari/537.36",
         }
       }, (imgRes: IncomingMessage) => {
-        // Handle redirects manually (up to 5 times)
         if (imgRes.statusCode && imgRes.statusCode >= 300 && imgRes.statusCode < 400 && imgRes.headers.location) {
           const redirectedUrl = new URL(imgRes.headers.location, imageUrl).href;
           req.nextUrl.searchParams.set("url", redirectedUrl);
-          resolve(GET(req)); // Recursively call GET with the redirected URL
+          resolve(GET(req));
           return;
         }
 

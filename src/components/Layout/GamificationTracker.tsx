@@ -90,7 +90,7 @@ export default function GamificationTracker() {
             onClick={resetMilestones}
             className="text-xs gap-1"
           >
-            <RotateCcw size={14} /> Reset Mission
+            <RotateCcw size={14} /> Relaunch Mission
           </Button>
         </div>
       </motion.div>

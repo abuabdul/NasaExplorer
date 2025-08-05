@@ -19,29 +19,29 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Bring Home the Martian",
-    template: "%s | Bring Home the Martian",
+    default: "Space Pirate",
+    template: "%s | Space Pirate",
   },
   description: "Explore NASA's Mars Rover Pictures.",
   metadataBase: new URL("https://yourdomain.com"),
   openGraph: {
-    title: "Bring Home the Martian",
+    title: "Space Pirate",
     description: "Discover Mars with NASA rover pictures.",
     type: "website",
     url: "https://yourdomain.com",
-    siteName: "Bring Home the Martian",
+    siteName: "Space Pirate",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Bring Home the Martian",
+        alt: "Space Pirate",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bring Home the Martian",
+    title: "Space Pirate",
     description: "Discover Mars with NASA rover pictures.",
     creator: "@your_twitter",
     images: ["/og-image.png"],

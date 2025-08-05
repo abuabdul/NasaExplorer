@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 const routes = [
   { href: "/", label: "Home", icon: Rocket },
   { href: "/mars", label: "Mars Mission", icon: SatelliteDish },
-  { href: "/search", label: "Image Vault", icon: Search },
+  { href: "/search", label: "NASA Vault", icon: Search },
 ];
 
 export default function Header() {
@@ -71,7 +71,7 @@ export default function Header() {
               <Button
                 variant="ghost"
                 className={cn(
-                  "gap-1 text-sm text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white",
+                  "gap-1 text-sm text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white cursor-pointer",
                   pathname === href && "text-red-500 dark:text-red-400 font-semibold"
                 )}
               >
@@ -97,7 +97,7 @@ export default function Header() {
               <Button
                 variant="ghost"
                 className={cn(
-                  "w-full justify-start gap-2 text-sm text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white",
+                  "w-full justify-start gap-2 text-sm text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white cursor-pointer",
                   pathname === href && "text-red-500 dark:text-red-400 font-semibold"
                 )}
               >

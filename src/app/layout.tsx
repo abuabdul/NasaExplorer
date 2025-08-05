@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     template: "%s | Space Pirate",
   },
   description: "Explore NASA's Mars Rover Pictures.",
+  icons: {
+    icon: '/favicon-96x96.png',
+    apple: '/apple-touch-icon.png',
+  },
   metadataBase: new URL("https://yourdomain.com"),
   openGraph: {
     title: "Space Pirate",

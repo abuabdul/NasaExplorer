@@ -35,9 +35,7 @@ export interface NasaSearchItem {
   links?: NasaItemLink[];
 }
 
-export interface NasaSearchResponse {
-  data: {
-    collection: {
+export interface NasaSearchCollection {
       version: string;
       href: string;
       items: NasaSearchItem[];
@@ -49,19 +47,23 @@ export interface NasaSearchResponse {
         prompt?: string;
         href: string;
       }[];
-    };
+}
+
+export interface NasaSearchResponse {
+  data: {
+    collection: NasaSearchCollection;
   };
 }
 
-const fetchNASAItems = async (params: SearchParams): Promise<NasaSearchItem[]> => {
+const fetchNASAItems = async (params: SearchParams): Promise<NasaSearchCollection> => {
   const res = await apiClient.get<{ data: NasaSearchResponse["data"] }>("/image-library/search", {
     params,
   });
-  return res.data.data.collection.items || [];
+  return res.data.data.collection || [];
 };
 
 export const useNASAImageSearch = (params: SearchParams) => {
-  return useQuery<NasaSearchItem[]>({
+  return useQuery<NasaSearchCollection>({
     queryKey: ["nasa-search", params],
     queryFn: () => fetchNASAItems(params),
     enabled: !!params.q,

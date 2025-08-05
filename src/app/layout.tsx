@@ -5,6 +5,7 @@ import Providers from "./Providers";
 import Header from "@/components/Layout/Header";
 import GamificationTracker from "@/components/Layout/GamificationTracker";
 import Starfield from "@/components/Starfield";
+import PageTransition from "@/components/Layout/PageTransition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,11 +56,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>
-          <Header />
-          <GamificationTracker />
-          {children}
-        </Providers>
+        <PageTransition>
+          <Providers>
+            <Header />
+            <GamificationTracker />
+            {children}
+          </Providers>
+        </PageTransition>
       </body>
     </html>
   );

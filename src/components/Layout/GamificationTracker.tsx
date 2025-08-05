@@ -1,38 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BadgeCheck, Target, Search, Image as LcImage, Download, Share2 } from "lucide-react";
+import {
+  BadgeCheck,
+  Target,
+  Search,
+  Image as LcImage,
+  Download,
+  Share2,
+  RotateCcw,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { useTheme } from "next-themes";
-
+import { useMilestonesStore } from "@/stores/useMilestonesStore";
+import { Button } from "../ui/button";
 
 const totalMilestones = 4;
 
 export default function GamificationTracker() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [milestones, setMilestones] = useState({
-    searched: false,
-    viewed: false,
-    downloaded: false,
-    shared: false,
-  });
+  const { milestones, resetMilestones } = useMilestonesStore();
 
   const progress =
     (Object.values(milestones).filter(Boolean).length / totalMilestones) * 100;
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("mars_milestones");
-    if (saved) {
-      setMilestones(JSON.parse(saved));
-    }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("mars_milestones", JSON.stringify(milestones));
-  }, [milestones]);
 
   if (!mounted) return null;
 
@@ -48,13 +44,13 @@ export default function GamificationTracker() {
   return (
     <AnimatePresence>
       <motion.div
-          className={`
+        className={`
           fixed z-40 border ${borderColor} shadow-lg rounded-xl p-4 ${bgColor} ${textColor} transition-all
-            w-[90vw] max-w-sm sm:w-[280px]
-            bottom-4 left-1/2 transform -translate-x-1/2
-            sm:top-16 sm:right-1 sm:left-auto sm:bottom-auto sm:translate-x-0
-          `}>
-
+          w-[90vw] max-w-sm sm:w-[280px]
+          bottom-4 left-1/2 transform -translate-x-1/2
+          sm:top-16 sm:right-1 sm:left-auto sm:bottom-auto sm:translate-x-0
+        `}
+      >
         <div className="flex items-center gap-2 mb-2">
           {progress === 100 ? (
             <BadgeCheck className={`${activeIconColor} w-5 h-5`} />
@@ -86,6 +82,17 @@ export default function GamificationTracker() {
             <span className={milestones.shared ? activeIconColor : inactiveIconColor}>Shared item</span>
           </li>
         </ul>
+
+        <div className="mt-4 flex justify-end">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={resetMilestones}
+            className="text-xs gap-1"
+          >
+            <RotateCcw size={14} /> Reset Mission
+          </Button>
+        </div>
       </motion.div>
     </AnimatePresence>
   );

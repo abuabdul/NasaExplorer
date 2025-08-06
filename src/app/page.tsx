@@ -17,6 +17,7 @@ import { FaXTwitter, FaLinkedin, FaInstagram } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import Starfield from "@/components/Layout/Starfield";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 
 export default function HomePage() {
   const [date, setDate] = useState<string | undefined>(undefined);
@@ -200,7 +201,7 @@ export default function HomePage() {
                 </p>
 
                 {data.media_type === "image" ? (
-                  <img
+                  <Image
                     src={data.url}
                     alt={data.title}
                     className="rounded-lg w-full h-auto max-h-[500px] object-cover"

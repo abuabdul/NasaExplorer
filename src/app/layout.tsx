@@ -4,7 +4,6 @@ import "./globals.css";
 import Providers from "./Providers";
 import Header from "@/components/Layout/Header";
 import GamificationTracker from "@/components/Layout/GamificationTracker";
-import Starfield from "@/components/Layout/Starfield";
 import PageTransition from "@/components/Layout/PageTransition";
 
 const geistSans = Geist({

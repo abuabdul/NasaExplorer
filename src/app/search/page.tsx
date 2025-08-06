@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useNASAImageSearch, SearchParams, NasaItemLink } from "@/hooks/useNasaImageSearch";
+import { useNASAImageSearch, SearchParams, NasaItemLink, NasaSearchItem } from "@/hooks/useNasaImageSearch";
 import {
   Download,
   ExternalLink,
@@ -21,7 +21,7 @@ import { useMilestonesStore } from "@/stores/useMilestonesStore";
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<NasaSearchItem[]>([]);
   const [searchParams, setSearchParams] = useState<SearchParams>({ q: "" });
   const { data, isFetching, isLoading } = useNASAImageSearch({ ...searchParams, page });
   const observerRef = useRef<HTMLDivElement | null>(null);

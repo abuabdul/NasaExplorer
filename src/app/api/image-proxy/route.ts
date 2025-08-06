@@ -4,7 +4,7 @@ import https from "https";
 import { IncomingMessage } from "http";
 import { URL } from "url";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<Response> {
   const imageUrl = req.nextUrl.searchParams.get("url");
 
   if (!imageUrl || !(imageUrl.startsWith("http://") || imageUrl.startsWith("https://"))) {
@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
 
   const client = imageUrl.startsWith("https") ? https : http;
 
-  return new Promise((resolve) => {
+  return new Promise<Response>((resolve) => {
     try {
       const request = client.get(imageUrl, {
         headers: {
@@ -54,9 +54,13 @@ export async function GET(req: NextRequest) {
         resolve(new Response("Failed to fetch image", { status: 500 }));
       });
 
-    } catch (error: any) {
-      console.error("Unexpected error:", error.message);
-      resolve(new Response("Unexpected error occurred", { status: 500 }));
+    } catch (error) {
+        if (error instanceof Error) {
+          console.error("Unexpected error:", error.message);
+        } else {
+          console.error("Unexpected error:", error);
+        }
+        resolve(new Response("Unexpected error occurred", { status: 500 }));
     }
   });
 }

@@ -24,7 +24,7 @@ export default function SearchPage() {
   const [items, setItems] = useState<NasaSearchItem[]>([]);
   const [searchParams, setSearchParams] = useState<SearchParams>({ q: "" });
   const { data, isFetching, isLoading } = useNASAImageSearch({ ...searchParams, page });
-  const observerRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const { updateMilestone } = useMilestonesStore();
   const [totalHits, setTotalHits] = useState<number | null>(null);
 

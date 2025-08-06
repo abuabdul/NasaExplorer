@@ -204,6 +204,8 @@ export default function HomePage() {
                   <Image
                     src={data.url}
                     alt={data.title}
+                    width={1280}
+                    height={720}
                     className="rounded-lg w-full h-auto max-h-[500px] object-cover"
                   />
                 ) : (

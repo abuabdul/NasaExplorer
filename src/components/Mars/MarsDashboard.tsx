@@ -35,18 +35,27 @@ export default function MarsDashboard() {
   const [earthDate, setEarthDate] = useState<string | undefined>(undefined);
   const [page] = useState(1);
 
-  const { data, isLoading, refetch } = useMarsRoverPhotos(selectedRover, {
-    sol: Number(sol),
-    camera,
-    earth_date: earthDate,
-    page,
-  });
+  const queryParams = sol
+    ? { sol: Number(sol), camera, page }
+    : { earth_date: earthDate, camera, page };
+
+  const { data, isLoading, refetch } = useMarsRoverPhotos(selectedRover, queryParams);
 
   useEffect(() => {
-    if (!earthDate && data?.length) {
-      setEarthDate(data[0].earth_date);
+    if (!data?.length) return;
+
+    const { sol: responseSol, earth_date: responseDate } = data[0];
+
+    if (sol && earthDate) {
+      if (responseDate !== earthDate) {
+        setEarthDate(responseDate);
+      }
+    } else if (sol && !earthDate) {
+      setEarthDate(responseDate);
+    } else if (!sol && earthDate) {
+      setSol(responseSol.toString());
     }
-  }, [data, earthDate]);
+  }, [data, sol, earthDate]);
 
   const totalPhotos = data?.length || 0;
 

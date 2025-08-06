@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import apiClient from "@/lib/apiClient";
 
 interface FetchMarsPhotosParams {
-  sol: number;
+  sol?: number;
   camera?: string;
   page?: number;
   earth_date?: string;

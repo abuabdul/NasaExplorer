@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMarsRoverPhotos } from "@/hooks/useMarsRoverPhotos";
 import {
   BarChart,
@@ -41,6 +41,12 @@ export default function MarsDashboard() {
     earth_date: earthDate,
     page,
   });
+
+  useEffect(() => {
+    if (!earthDate && data?.length) {
+      setEarthDate(data[0].earth_date);
+    }
+  }, [data, earthDate]);
 
   const totalPhotos = data?.length || 0;
 

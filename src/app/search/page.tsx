@@ -10,12 +10,12 @@ import {
   ExternalLink,
   Loader,
   Search as SearchIcon,
-  Share2,
 } from "lucide-react";
 import Image from "next/image";
 import Starfield from "@/components/Layout/Starfield";
 import VideoPlayer from "@/components/Search/VideoPlayer";
 import { useMilestonesStore } from "@/stores/useMilestonesStore";
+import ShareButton from "@/components/Search/ShareButton";
 
 
 export default function SearchPage() {
@@ -76,7 +76,7 @@ export default function SearchPage() {
   };
 
   return (
-    <main className="max-w-6xl mx-auto p-6">
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 overflow-x-hidden">
       <Starfield />
       <div className="mb-6 flex flex-wrap items-center gap-2 z-10 relative">
         <Input
@@ -123,7 +123,7 @@ export default function SearchPage() {
         </p>
       )}
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item, index) => {
           const details = item.data[0];
           const preview = item.links?.find((l: NasaItemLink) => l.rel === "preview")?.href;
@@ -132,7 +132,7 @@ export default function SearchPage() {
 
           return (
             <div key={details.nasa_id}>
-              <Card className="overflow-hidden">
+              <Card className="overflow-hidden w-full h-full flex flex-col">
                 <CardContent className="p-0">
                   {details.media_type === "image" && preview && (
                     <Image
@@ -140,7 +140,7 @@ export default function SearchPage() {
                       alt={details.title}
                       width={400}
                       height={300}
-                      className="w-full h-60 object-cover"
+                      className="w-full h-48 sm:h-60 object-cover"
                     />
                   )}
 
@@ -187,24 +187,13 @@ export default function SearchPage() {
                         </button>
                       )}
 
-                      {/* this wont show locally as it requires https */}
-                      {typeof window !== "undefined" && "share" in navigator && (
-                        <button
-                          onClick={() => {
-                            navigator
-                              .share({
-                                title: details.title,
-                                text: details.description,
-                                url: canonical || preview,
-                              })
-                              .then(() => updateMilestone("shared"))
-                              .catch((err) => console.warn("Share failed", err));
-                          }}
-                          className="text-purple-600 dark:text-purple-400 text-sm flex items-center gap-1 hover:underline"
-                        >
-                          <Share2 size={14} /> Share
-                        </button>
-                      )}
+                      <ShareButton
+                        title={details.title}
+                        description={details.description}
+                        url={canonical || preview || "not valid url"}
+                        updateMilestone={() => updateMilestone("shared")}
+                      />
+
                     </div>
                   </div>
                 </CardContent>

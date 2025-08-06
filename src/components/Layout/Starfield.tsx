@@ -7,7 +7,7 @@ export default function Starfield() {
   const starsRef = useRef<
     { x: number; y: number; radius: number; speed: number }[]
   >([]);
-  const animationFrameId = useRef<number>();
+  const animationFrameId = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -63,6 +63,9 @@ export default function Starfield() {
     animate();
 
     function onResize() {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
       initStars(); // Recreate stars on resize to avoid skew

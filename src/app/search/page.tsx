@@ -173,8 +173,10 @@ export default function SearchPage() {
                       {details.media_type === "image" && preview && (
                         <button
                           onClick={() => {
+                            if (!canonical) return;
+
                             forceDownload(
-                              canonical?.replace("~orig.tif", "~large.jpg"),
+                              canonical.replace("~orig.tif", "~large.jpg"),
                               `${details.title}.jpg`
                             );
                             updateMilestone("downloaded");

@@ -18,12 +18,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'mars.nasa.gov',
-        pathname: '/msl-raw-images/**',
+        pathname: '/**',
       },
        {
         protocol: 'http',
         hostname: 'mars.nasa.gov',
-        pathname: '/msl-raw-images/**',
+        pathname: '/**',
       },
       {
         protocol: 'https',
@@ -38,12 +38,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'mars.jpl.nasa.gov',
-        pathname: '/msl-raw-images/**',
+        pathname: '/**',
       },
       {
         protocol: 'http',
         hostname: 'mars.jpl.nasa.gov',
-        pathname: '/msl-raw-images/**',
+        pathname: '/**',
       },
       {
         protocol: 'https',

@@ -7,7 +7,7 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Tooltip,
+  Tooltip as TooltipIcon,
   PieChart,
   Pie,
   Cell,
@@ -21,6 +21,12 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import Image from "next/image";
 import WatneyMessage from "./WatneyMessage";
 
@@ -35,27 +41,20 @@ export default function MarsDashboard() {
   const [earthDate, setEarthDate] = useState<string | undefined>(undefined);
   const [page] = useState(1);
 
-  const queryParams = sol
-    ? { sol: Number(sol), camera, page }
-    : { earth_date: earthDate, camera, page };
+  const queryParams = {
+    sol: Number(sol),
+    camera,
+    page,
+  };
 
   const { data, isLoading, refetch } = useMarsRoverPhotos(selectedRover, queryParams);
 
   useEffect(() => {
     if (!data?.length) return;
 
-    const { sol: responseSol, earth_date: responseDate } = data[0];
-
-    if (sol && earthDate) {
-      if (responseDate !== earthDate) {
-        setEarthDate(responseDate);
-      }
-    } else if (sol && !earthDate) {
-      setEarthDate(responseDate);
-    } else if (!sol && earthDate) {
-      setSol(responseSol.toString());
-    }
-  }, [data, sol, earthDate]);
+    const { earth_date: responseDate } = data[0];
+    setEarthDate(responseDate);
+  }, [data]);
 
   const totalPhotos = data?.length || 0;
 
@@ -92,20 +91,29 @@ export default function MarsDashboard() {
           <Input
             placeholder="e.g. 1000"
             value={sol}
-            onChange={(e) => setSol(e.target.value)}
+            onChange={(e) => {setSol(e.target.value); setEarthDate(undefined);}}
             className="w-[120px]"
           />
         </div>
 
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Earth Date</label>
-          <Input
-            type="date"
-            value={earthDate ?? ""}
-            onChange={(e) => setEarthDate(e.target.value || undefined)}
-            className="w-[180px]"
-          />
-        </div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium">Earth Date</label>
+                <Input
+                  type="date"
+                  value={earthDate ?? ""}
+                  readOnly
+                  className="w-[180px] cursor-not-allowed text-zinc-500"
+                />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="text-xs max-w-xs">
+              This date is auto-calculated from the selected Martian sol.
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
         <div className="space-y-2">
           <label className="block text-sm font-medium">Camera</label>
@@ -169,7 +177,7 @@ export default function MarsDashboard() {
                 <BarChart data={chartData}>
                   <XAxis dataKey="name" />
                   <YAxis allowDecimals={false} />
-                  <Tooltip />
+                  <TooltipIcon />
                   <Bar dataKey="value" fill="#3b82f6" />
                 </BarChart>
               </ResponsiveContainer>

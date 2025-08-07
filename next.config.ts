@@ -18,6 +18,16 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'mars.nasa.gov',
+        pathname: '/msl-raw-images/**',
+      },
+       {
+        protocol: 'http',
+        hostname: 'mars.nasa.gov',
+        pathname: '/msl-raw-images/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mars.nasa.gov',
         pathname: '/mer/gallery/**',
       },
        {

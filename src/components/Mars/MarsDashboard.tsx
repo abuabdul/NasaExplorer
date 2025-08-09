@@ -68,7 +68,7 @@ export default function MarsDashboard() {
     : [];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div data-testid="mars-dashboard" className="p-6 max-w-7xl mx-auto">
       <div className="flex flex-wrap gap-4 mb-6 items-end">
         <div className="space-y-2">
           <label className="block text-sm font-medium">Rover</label>

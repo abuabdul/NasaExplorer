@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useNASAImageSearch, SearchParams, NasaItemLink, NasaSearchItem } from "@/hooks/useNasaImageSearch";
+import { useNASAImageSearch, SearchParams, NasaItemLink, NasaSearchItem } from "@/hooks/useNASAImageSearch";
 import {
   Download,
   ExternalLink,
@@ -78,7 +78,7 @@ export default function SearchPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 overflow-x-hidden">
       <Starfield />
-      <div className="mb-6 flex flex-wrap items-center gap-2 z-10 relative">
+      <div data-testid="search-page" className="mb-6 flex flex-wrap items-center gap-2 z-10 relative">
         <Input
           placeholder="Search NASA's media library..."
           value={query}

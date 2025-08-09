@@ -187,7 +187,7 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <Card
+          <Card data-testid="home-card"
             className={`${
               dark ? "bg-zinc-900 text-zinc-100" : "bg-zinc-100 text-zinc-900"
             } rounded-xl shadow-lg`}

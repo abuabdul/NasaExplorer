@@ -11,7 +11,7 @@ export interface APODData {
   copyright?: string;
 }
 
-const fetchAPOD = async (date?: string): Promise<APODData> => {
+export const fetchAPOD = async (date?: string): Promise<APODData> => {
   const endpoint = date ? `/apod?date=${date}` : "/apod";
   const response = await apiClient.get<{ data: APODData }>(endpoint);
   return response.data.data;

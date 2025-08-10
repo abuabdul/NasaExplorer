@@ -25,7 +25,7 @@ export interface MarsPhoto {
   };
 }
 
-const fetchMarsRoverPhotos = async (rover: string, params: FetchMarsPhotosParams): Promise<MarsPhoto[]> => {
+export const fetchMarsRoverPhotos = async (rover: string, params: FetchMarsPhotosParams): Promise<MarsPhoto[]> => {
   const res = await apiClient.get<{ data: { photos: MarsPhoto[] } }>(`/mars-rover/${rover}/photos`, { params });
   return res.data.data.photos || [];
 };

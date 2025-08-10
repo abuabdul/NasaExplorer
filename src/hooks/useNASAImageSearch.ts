@@ -55,7 +55,7 @@ export interface NasaSearchResponse {
   };
 }
 
-const fetchNASAItems = async (params: SearchParams): Promise<NasaSearchCollection> => {
+export const fetchNASAItems = async (params: SearchParams): Promise<NasaSearchCollection> => {
   const res = await apiClient.get<{ data: NasaSearchResponse["data"] }>("/image-library/search", {
     params,
   });

@@ -108,7 +108,12 @@ Open your browser and go to `http://localhost:3000` to explore the app.
 - **Deployment**: Easily deployable to Vercel  
 - **Testing**: Jest + React Testing Library for unit/integration testing
 
+### What could have been done better
+
+> If I had done some more time, I would have modified the Mars mission search criteria section with react hook form along with zod validation
+
 ---
+
 
 ## API Details
 
